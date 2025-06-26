@@ -12,7 +12,7 @@ env:
   GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   IMAGE_NAME: whisparr-custom
   PATCH_REPO: teemosyndra/whisparr-patch
-  PATCH_BRANCH: main # change if needed
+  PATCH_BRANCH: master # change if needed
 
 jobs:
   build-and-push:
