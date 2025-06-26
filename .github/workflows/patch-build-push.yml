@@ -57,7 +57,17 @@ jobs:
           build-args: |
             UPSTREAM_IMAGE=${UPSTREAM_IMAGE}
             UPSTREAM_DIGEST_AMD64=${UPSTREAM_DIGEST_AMD64}
-      
+            
+      - name: Set UPSTREAM_DIGEST
+        run: echo "UPSTREAM_DIGEST=${UPSTREAM_DIGEST_AMD64}" >> $GITHUB_ENV
+
+      - name: Check required variables
+        run: |
+          if [[ -z "${UPSTREAM_IMAGE}" || -z "${UPSTREAM_DIGEST}" ]]; then
+            echo "Missing required Docker build arguments."
+            exit 1
+          fi
+    
       - name: Log in to DockerHub
         uses: docker/login-action@v3
         with:
