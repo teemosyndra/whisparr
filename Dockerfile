@@ -11,7 +11,7 @@ EXPOSE 6969
 ARG IMAGE_STATS
 ENV IMAGE_STATS=${IMAGE_STATS} WEBUI_PORTS="6969/tcp,6969/udp"
 
-RUN apk add --no-cache libintl sqlite-libs icu-libs
+RUN apt-get update && apt-get install -y libsqlite3-0 libicu70
 
 ARG VERSION
 ARG SBRANCH
