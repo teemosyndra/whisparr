@@ -7,11 +7,13 @@ ARG TARGETARCH
 
 # Example: download binary for the correct architecture
 RUN if [ "$TARGETARCH" = "amd64" ]; then \
-      curl -L -o /usr/local/bin/myapp https://example.com/downloads/myapp-linux-amd64 ; \
+      curl -fsSL "https://whisparr.servarr.com/v1/update/${SBRANCH}/updatefile?version=${VERSION}&os=linuxmusl&runtime=netcore&arch=x64" | tar xzf - -C "${APP_DIR}/bin" --strip-components=1 ; \
     elif [ "$TARGETARCH" = "arm64" ]; then \
-      curl -L -o /usr/local/bin/myapp https://example.com/downloads/myapp-linux-arm64 ; \
+      curl -fsSL "https://whisparr.servarr.com/v1/update/${SBRANCH}/updatefile?version=${VERSION}&os=linuxmusl&runtime=netcore&arch=arm64" | tar xzf - -C "${APP_DIR}/bin" --strip-components=1 ; \
     fi && \
-    chmod +x /usr/local/bin/myapp
+    rm -rf "${APP_DIR}/bin/Whisparr.Update" && \
+    echo -e "PackageVersion=${PACKAGE_VERSION}\nPackageAuthor=[hotio](https://github.com/hotio)\nUpdateMethod=Docker\nBranch=${SBRANCH}" > "${APP_DIR}/package_info" && \
+    chmod -R u=rwX,go=rX "${APP_DIR}"
     
 ARG UPSTREAM_IMAGE
 ARG UPSTREAM_DIGEST
