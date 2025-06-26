@@ -24,6 +24,8 @@ jobs:
           repository: whisparr/whisparr
           ref: eros
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+          fetch-tags: false
 
       - name: Checkout patch repo
         uses: actions/checkout@v4
